@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Aphex Twin Helps Me Sleep</title>
+
+    <link rel="icon" href="img/capi.png" type="image/png">
+
+    <style>
+        @font-face{
+    font-family: "ABC Otto Variable Trial";
+    src: url("font/ABCOttoVariableTrial.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+}
+        body{
+            margin: 0;
+            background: white;
+            font-family: "ABC Otto Variable Trial", serif;
+            overflow-x: hidden;
+            transition: background-color 0.3s;
+        }
+
+        #content{
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1{
+            font-size: 25px;
+            font-weight: normal;
+            margin: 30px 0 70px 0;
+            text-align: center;
+        }
+
+        #album{
+            width: min(60vw, 950px);
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0;
+            line-height: 0;
+        }
+
+        #album img{
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            display: block;
+
+            filter: blur(24px);
+            transition: filter 0.3s;
+
+            cursor: pointer;
+        }
+
+        #logo{
+            display: block;
+            width: 500px;
+            max-width: 40vw;
+            height: auto;
+            margin: 40px 0 0 0;
+        }
+
+        #leftText{
+            position: fixed;
+            left: 0.5vw;
+            top: 50%;
+
+            transform: translateY(-50%) rotate(-90deg);
+
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        #rightText{
+            position: fixed;
+            right: 0.5vw;
+            top: 50%;
+
+            transform: translateY(-50%) rotate(90deg);
+
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        #artistInfo{
+            display: none;
+
+            position: fixed;
+            left: 3vw;
+            top: 38%;
+
+            transform: translateY(-50%) rotate(-90deg);
+
+            width: 400px;
+
+            font-size: 20px;
+            line-height: 1.4;
+
+            z-index: 10;
+        }
+
+        #playlistInfo{
+            display: none;
+
+            position: fixed;
+            right: 5vw;
+            top: 57%;
+
+            transform: translateY(-50%) rotate(90deg);
+
+            width: 240px;
+
+            font-size: 18px;
+            line-height: 1.35;
+
+            z-index: 10;
+        }
+
+
+        @media screen and (max-width: 1100px) and (min-width: 701px){
+
+            #album{
+                width: 72vw;
+            }
+
+            h1{
+                font-size: 26px;
+                margin-bottom: 50px;
+            }
+
+            #logo{
+                width: 18vw;
+                margin-top: 10px;
+            }
+
+            #leftText,
+            #rightText{
+                font-size: 17px;
+            }
+
+            #leftText{
+                left: 1.5vw;
+            }
+
+            #rightText{
+                right: 1.5vw;
+            }
+        }
+
+
+        @media screen and (max-width: 700px){
+
+            #content{
+                min-height: auto;
+                padding: 40px 0;
+                justify-content: flex-start;
+            }
+
+            h1{
+                font-size: 22px;
+                margin: 0 0 45px 0;
+            }
+
+            #album{
+                width: 82vw;
+                grid-template-columns: 1fr;
+            }
+
+            #logo{
+                width: 35vw;
+                margin-top: 12px;
+            }
+
+            #leftText,
+            #rightText{
+                display: none;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <div id="leftText">APHEX TWIN</div>
+    <div id="rightText">PLAYLIST</div>
+
+
+    <div id="content">
+
+        <h1>Aphex Twin helps me sleep</h1>
+
+
+        <div id="album">
+
+            <img src="img/1.jpg" id="one">
+            <img src="img/2.jpg" id="two">
+            <img src="img/3.jpg" id="three">
+            <img src="img/4.jpg" id="four">
+            <img src="img/5.jpg" id="five">
+            <img src="img/6.jpg" id="six">
+
+        </div>
+
+
+        <div id="artistInfo">
+
+            <p>
+                Richard D. James, known as Aphex Twin, is a British electronic musician
+                and producer. His music combines ambient, techno, acid and experimental
+                electronic sounds. He is known for creating both calm, dreamlike music
+                and complex, intense rhythms.
+            </p>
+
+        </div>
+
+
+        <div id="playlistInfo">
+
+            <p>
+                1. T69 Collapse<br>
+                2. Film<br>
+                3. 4 bit 9d api+6 [126.26]<br>
+                4. n a room7 F760<br>
+                5. Ventolin<br>
+                6. Windowlicker
+            </p>
+
+        </div>
+
+
+        <img src="img/logo.png" id="logo">
+
+    </div>
+
+
+    <audio src="Mp3/t69.mp3" id="snd1"></audio>
+    <audio src="Mp3/film.mp3" id="snd2"></audio>
+    <audio src="Mp3/4bit.mp3" id="snd3"></audio>
+    <audio src="Mp3/inaroom.mp3" id="snd4"></audio>
+    <audio src="Mp3/ventolin.mp3" id="snd5"></audio>
+    <audio src="Mp3/windowlicker.mp3" id="snd6"></audio>
+
+
+    <script>
+
+        let images = [one, two, three, four, five, six];
+        let sounds = [snd1, snd2, snd3, snd4, snd5, snd6];
+
+        let playing = -1;
+
+
+        for(let i = 0; i < images.length; i++){
+
+            images[i].onclick = function(){
+
+                for(let j = 0; j < sounds.length; j++){
+
+                    sounds[j].pause();
+                    images[j].style.filter = "blur(24px)";
+
+                }
+
+
+                if(playing == i){
+
+                    playing = -1;
+
+                }else{
+
+                    sounds[i].play();
+                    images[i].style.filter = "blur(0px)";
+
+                    playing = i;
+                }
+
+                changeBackground();
+            };
+
+        }
+
+
+        leftText.onclick = function(){
+
+            if(artistInfo.style.display == "block"){
+
+                artistInfo.style.display = "none";
+
+            }else{
+
+                artistInfo.style.display = "block";
+            }
+
+            changeBackground();
+        };
+
+
+        rightText.onclick = function(){
+
+            if(playlistInfo.style.display == "block"){
+
+                playlistInfo.style.display = "none";
+
+            }else{
+
+                playlistInfo.style.display = "block";
+            }
+
+            changeBackground();
+        };
+
+
+        function changeBackground(){
+
+            if(
+                playing != -1 ||
+                artistInfo.style.display == "block" ||
+                playlistInfo.style.display == "block"
+            ){
+
+                document.body.style.backgroundColor = "#D2EF30";
+
+            }else{
+
+                document.body.style.backgroundColor = "white";
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>
